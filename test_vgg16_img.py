@@ -86,10 +86,10 @@ with tf.device('/gpu:0'):
             features = []
             for i in range(batch.shape[0] / sub_batch):
                 feed_dict = {images: batch[(sub_batch * i): (sub_batch * (i + 1))]}
-                fc8 = sess.run(vgg.fc8, feed_dict=feed_dict)
-                features.append(fc8)
+                conv5_3 = sess.run(vgg.conv5_3, feed_dict=feed_dict)
+                features.append(conv5_3)
             features = np.concatenate(features, 0)
-            npy_path = "features_imagenet_" + re.split('/', path)[-1] + "_vgg16.npy"
+            npy_path = "features_imagenet_" + re.split('/', path)[-1] + "_vgg16_conv5-3.npy"
             np.save(npy_path, features)
             print(npy_path + "  OK")
 
